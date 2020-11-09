@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<report
+			id="gstr_gstr1_report"
+			model="wizard.gstr1"
+			string="GSTR-1"
+			report_type="xlsx"
+			name="gst.gstr1"
+			file="gst_gstr1"
+			attachment_use="False"
+		    menu="False"
+		/>
+	</data>
+</odoo>

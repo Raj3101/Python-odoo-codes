@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="project_task_timer_inherit_1" model="ir.ui.view">
+            <field name="name">project task timer</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='tag_ids']" position="after">
+					<field name="from_concerned" readonly="1"/>
+					<field name="concern_id" invisible="1"/>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

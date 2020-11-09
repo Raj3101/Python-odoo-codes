@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_qweb_invoice_doc">
+            <t t-call="web.html_container">
+                <t t-call="web.basic_layout">
+                            <div class="page">
+                                <div class="oe_structure"/>
+
+                                <style>
+                                    .style1
+                                    {
+                                        display:inline-block;
+                                        width:100px;
+                                        padding:2px 2px 2px 2px;
+                                        font-weight:bold;
+                                        font-size:15px;
+                                    }
+                                    .style2
+                                    {
+                                        width: 400px;
+                                        margin-left: 350px;
+                                        margin-right: 300px;
+                                    }
+                                    .style3
+                                    {
+                                        border:1px solid black;
+                                        border-collapse: collapse;
+                                        wrap:true;
+                                        text-align: center;
+                                        padding: 3px;
+                                    }
+                                    .style4
+                                    {
+                                        border: 1px solid black;
+                                        border-collapse: collapse;
+                                        text-align: left;
+                                        vertical-align: middle;
+                                        padding: 3px;
+                                    }
+                                    .style5
+                                    {
+                                        border-bottom: 1px solid black;
+                                        border-collapse: collapse;
+                                    }
+                                    .indent1
+                                    {
+                                        margin-left:5px;
+                                        margin-right:5px;
+                                        margin-bottom:5px;
+                                        margin-top: -20px;
+                                    }
+
+                                </style>
+                                <h2><center><b><u>Invoice Report</u></b></center></h2>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Invoice Number</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="docs" t-as="inv">
+                                            <td class="style4" width="50%"><span t-field="inv.number"></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_qweb_invoice">
+            <t t-call="web.html_container">
+                    <t t-call="invoice_report.report_qweb_invoice_doc"/>
+            </t>
+        </template>
+    </data>
+</odoo>

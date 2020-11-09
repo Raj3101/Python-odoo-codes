@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_partner_form_inherit" model="ir.ui.view">
+        <field name="name">form modification</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="patient" string="Is Patient"/>
+            </xpath>
+        <button name="toggle_active" position="before">
+                    <button class="oe_stat_button" type="object" name="open_tree_view"
+                        attrs="{'invisible': [('patient', '=', False)]}"
+                        icon="fa-usd">
+                        <field string="Case" name="prescription_count" widget="statinfo"/>
+                    </button>
+        </button>
+
+        </field>
+    </record>
+</odoo>
+

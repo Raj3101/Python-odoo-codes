@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <act_window id="msg_wizard_action" name="msg order" res_model="msg.wizard" src_model='pumps.pump' view_mode="form" target="new" multi="True"/>
+    <record id="msg_wizard_view" model="ir.ui.view">
+        <field name="name">msg wizard</field>
+        <field name="model">msg.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group colspan="2" col="4" >
+                </group>
+                <group>
+                    <field name='msg'/>
+                    <field name='quantity'/>
+                </group>
+                <group>
+                    <button special="cancel" string="ok" class="oe_highlight"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>
+

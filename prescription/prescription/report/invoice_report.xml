@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id = "invoice_report_qweb"
+            model = "account.invoice"
+            string = "Invoice Report"
+            report_type = "qweb-pdf"
+            name = "prescription.inv_report"
+            file = "prescription.inv_report"
+        />
+
+    </data>
+</odoo>

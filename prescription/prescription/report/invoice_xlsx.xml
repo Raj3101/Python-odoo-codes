@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="invoice_xlsx"
+            model="account.invoice"
+            string="Invoice Report"
+            report_type="xlsx"
+            name="prescription.report_invoice"
+            file="prescription.report_invoice"
+            attachment_use="False"
+        />
+	  </data>
+</odoo>

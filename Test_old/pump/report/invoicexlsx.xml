@@ -1,0 +1,10 @@
+<report
+    id="invoice_xlsx"
+    model="account.invoice"
+    string="Invoice Xlsx"
+    report_type="xlsx"
+    name="account.invoice.invoice"
+    file="account.invoice.invoice"
+    attachment_use="False"
+/>
+

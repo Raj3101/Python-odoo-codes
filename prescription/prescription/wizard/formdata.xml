@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="form_data_view" model="ir.ui.view">
+        <field name="name">form data</field>
+        <field name="model">form.data</field>
+        <field name="arch" type="xml">
+            <form>
+                <group colspan="2" col="4" >
+                    <field name="name"/>
+                    <field name="diagnosis"/>
+                    <field name="age"/>
+                    <field name="date"/>
+                    <field name="visitagain"/>
+                </group>
+                <footer>
+                    <button name="form_data" string="create form" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_view_form_data" model="ir.actions.act_window">
+        <field name="name">form data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">form.data</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        action="action_view_form_data"
+        id="menu_form_data_view"
+        parent="menu_prescription"/>
+</odoo>

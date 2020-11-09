@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <act_window id="sale_wizard_action" name="sale order" res_model="sale.wizard" src_model='pumps.pump' view_mode="form" target="new" multi="True"/>
+    <record id="sale_wizard_view" model="ir.ui.view">
+        <field name="name">sale wizard</field>
+        <field name="model">sale.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group colspan="2" col="4" >
+                    <field name="name"/>
+                    <field name="customer"/>
+                    <field name="quantity"/>
+                </group>
+                <group>
+                    <button string="sale order" type="object" name="create_sale_order" confirm="Your selleing is done" class="oe_highlight"/>
+                    <button string="msg" type="object" name="open_msg_wizard" class="oe_highlight"/>
+                </group>
+            </form>
+        </field>
+    </record>
+</odoo>
+

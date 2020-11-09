@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<report
+			id="invoice_xlsx_report"
+			model="wizard.invoice"
+			string="Invoice Report"
+			report_type="xlsx"
+			name="invoice_report.invreport"
+			file="Invoice"
+			attachment_use="False"
+		/>
+	</data>
+</odoo>

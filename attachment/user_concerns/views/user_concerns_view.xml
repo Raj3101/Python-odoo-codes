@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="user_concerns_type_view_form" model="ir.ui.view">
+        <field name="name">user.concerns.type.view.form</field>
+        <field name="model">user.concerns.type</field>
+        <field name="arch" type="xml">
+            <form string="Activities">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category"/>
+                            <!-- <field name="res_model_id" groups="base.group_no_one"/> -->
+                            <field name="summary"/>
+                            <field name="icon" groups="base.group_no_one"/>
+                            <field name="days"/>
+                        </group>
+                        <group>
+                            <field name="next_type_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="user_concerns_type_view_tree" model="ir.ui.view">
+        <field name="name">user.concerns.type.view.tree</field>
+        <field name="model">user.concerns.type</field>
+        <field name="arch" type="xml">
+            <tree string="Activities">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="summary"/>
+                <field name="days"/>
+                <!-- <field name="res_model_id" groups="base.group_no_one"/> -->
+                <field name="icon" groups="base.group_no_one"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="user_concerns_type_action" model="ir.actions.act_window">
+        <field name="name">Activity Types</field>
+        <field name="res_model">user.concerns.type</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="user_concerns_view_form_popup" model="ir.ui.view">
+        <field name="name">user.concerns.view.form.popup</field>
+        <field name="model">user.concerns</field>
+        <!-- <field name="priority">20</field> -->
+        <field name="arch" type="xml">
+            <form string="Log an Activity">
+				<header>
+					<button name="action_view_task" string="Create Task" type="object" class="oe_highlight" />
+					<button name="action_add_attachment" string="Add Attachment" type="object" class="oe_highlight" />
+				</header>
+                <sheet string="Activity">
+					<div class="oe_button_box" name="button_box">
+                        <button type="object"  name="action_view_task_tree"
+                            class="oe_stat_button"
+                            icon="fa-tasks">
+                            <field name="task_count" widget="statinfo" string="Task"/>
+                        </button>
+						<button type="object"  name="action_ir_attachment_form"
+                            class="oe_stat_button"
+                            icon="fa-paperclip">
+                            <field name="attachment_count" widget="statinfo" string="Attachment"/>
+                        </button>
+                    </div>
+                    <group invisible="1">
+                        <field name="activity_category" invisible="1" />
+                        <field name="res_id" invisible="1"/>
+                        <field name="previous_activity_type_id"/>
+                        <field name="has_recommended_activities"/>
+                    </group>
+                    <group attrs="{'invisible': [('has_recommended_activities','=',False)]}">
+                        <div>
+                            <p><strong>Recommended Activities</strong></p>
+                            <field name="recommended_activity_type_id" widget="radio"
+                                domain="[('previous_type_ids', '=', previous_activity_type_id)]"
+                                options="{'horizontal':true}"
+                                nolabel="1"/>
+                        </div>
+                    </group>
+					<h1 class="mt0">
+						<field name="sequence" class="oe_inline" readonly="True"/>
+					</h1>
+                    <group>
+                        <group>
+                            <field name="summary" placeholder="e.g. Discuss proposal"/>
+							<field name="project_id" options="{'no_create': True}" required="1"/>
+                            <field name="notice_customer"/>
+                        </group>
+                        <group>
+                            <field name="activity_type_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+							<field name="date_deadline" attrs="{'invisible':[['activity_category','=','meeting']]}" />
+                            <field name="user_id" attrs="{'invisible':[['activity_category','=','meeting']]}"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Log a note..."/>
+                </sheet>
+				<div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="user_concerns_view_search" model="ir.ui.view">
+        <field name="name">user.concerns.view.search</field>
+        <field name="model">user.concerns</field>
+        <field name="arch" type="xml">
+            <search string="Activity">
+                <!-- <field name="res_model_id"/> -->
+                <field name="summary"/>
+                <field name="activity_type_id"/>
+                <separator/>
+                <filter string="My Activities" name="activities_my"
+                        domain="[('create_uid', '=', uid)]"/>
+                <separator/>
+                <filter string="Late Activities" name="activities_overdue"
+                        domain="[('date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                        help="Show all records which has next action date is before today"/>
+                <filter string="Today Activities" name="activities_today"
+                        domain="[('date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter string="Future Activities" name="activities_upcoming_all"
+                        domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))
+                        ]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Deadline" context="{'group_by': 'date_deadline'}"/>
+                    <filter string="Created By" context="{'group_by': 'create_uid'}"/>
+                    <filter string="Activity Type" context="{'group_by': 'activity_type_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="user_concerns_view_tree" model="ir.ui.view">
+        <field name="name">user.concerns.view.tree</field>
+        <field name="model">user.concerns</field>
+        <field name="arch" type="xml">
+            <tree string="Next Activities"
+                    decoration-danger="date_deadline &lt; current_date"
+                    decoration-success="date_deadline == current_date"
+                    default_order="date_deadline">
+				<field name="sequence" string="Reference"/>
+                <field name="project_id"/>
+                <field name="activity_type_id"/>
+                <field name="summary"/>
+                <field name="date_deadline"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="user_concerns_view_calendar" model="ir.ui.view">
+        <field name="name">user.concerns.view.calendar</field>
+        <field name="model">user.concerns</field>
+        <field name="priority" eval="2"/>
+        <field name="arch" type="xml">
+            <calendar string="Activity" date_start="date_deadline" color="activity_type_id">
+                <!-- <field name="res_name"/> -->
+                <field name="create_uid"/>
+                <field name="summary"/>
+            </calendar>
+        </field>
+    </record>
+
+	<record id="user_concerns_action" model="ir.actions.act_window">
+        <field name="name">User Concerns</field>
+        <field name="res_model">user.concerns</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+	<menuitem id="sub_menu_user_concerns" name="Concerns" parent="project.menu_main_pm"/>
+	<menuitem id="sub_sub_menu_user_concerns" name="Concerns" action="user_concerns_action" parent="sub_menu_user_concerns"/>
+
+</odoo>

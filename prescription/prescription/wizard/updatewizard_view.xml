@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="prescription_updatewizard_view" model="ir.ui.view">
+        <field name="name">prescription updatewizard</field>
+        <field name="model">prescription.updatewizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group colspan="2" col="4" >
+                    <field name="customer_id"/>
+                    <field name="diagnosis"/>
+                    <field name="age"/>
+                    <field name="date"/>
+                    <field name="visitagain"/>
+                </group>
+                <footer>
+                    <button name="update_data" string="Update Record" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_view_updatewizard" model="ir.actions.act_window">
+        <field name="name">Prescription updatewizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">prescription.updatewizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        action="action_view_updatewizard"
+        id="menu_prescription_updatewizard_view"
+        parent="menu_prescription"/>
+</odoo>

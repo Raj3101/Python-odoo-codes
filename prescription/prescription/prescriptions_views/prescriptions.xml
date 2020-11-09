@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_ prescription_filter" model="ir.ui.view">
+            <field name="name">prescriptions.prescription.tree</field>
+            <field name="model">prescriptions.prescription</field>
+            <field name="arch" type="xml">
+                <search>
+                    <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                    <!-- <field name="visitagain" domain="[('visitagain','=',True)]"/> -->
+                    <!-- <filter name="group_name" string="By Name" context="{'group_by': 'name'}"/> -->
+                    <!-- <filter name="state" domain="[('state','=','open')]"/> -->
+                    <!-- <filter string="Order Month" domain="[]" context="{'group_by':'date_order','order_by':'date_order desc'}"/> -->
+                </search>
+            </field>
+        </record>
+        <record id="view_prescription_calendar" model="ir.ui.view">
+            <field name="name">prescriptions.prescription.calendar</field>
+            <field name="model">prescriptions.prescription</field>
+            <field name="arch" type="xml">
+                <calendar string="prescription" date_start="date">
+                    <field name="name"/>
+                    <field name="diagnosis"/>
+                </calendar>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_prescription_graph">
+            <field name="name">prescriptions.prescription.graph</field>
+            <field name="model">prescriptions.prescription</field>
+            <field name="arch" type="xml">
+                <graph string="prescription">
+                    <field name="name"/>
+                    <field name="totalqty" type="measure"/>
+                </graph>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_prescription_pivot">
+            <field name="name">prescriptions.prescription.pivot</field>
+            <field name="model">prescriptions.prescription</field>
+            <field name="arch" type="xml">
+                <pivot string="prescription">
+                    <field name="date" type="row"/>
+                    <field name="totalqty" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_prescription_tree" model="ir.ui.view">
+            <field name="name">prescriptions.prescription.tree</field>
+            <field name="model">prescriptions.prescription</field>
+            <field name="arch" type="xml">
+                <tree string="prescription">
+                    <field name="count" widget="handle"/>
+                    <field name="seq" />
+                    <field name="name" />
+                    <field name="age"/>
+                    <field name="diagnosis" />
+                    <field name="date" />
+                    <field name="visitagain" />
+                </tree>
+            </field>
+        </record>
+            <record model="ir.ui.view" id="view_prescription_kanban">
+            <field name="name">prescriptions.prescription.kanban</field>
+            <field name="model">prescriptions.prescription</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey o_kanban_dashboard o_project_kanban o_emphasize_colors">
+                    <field name="color"/>
+                    <field name="name"/>
+                    <field name="age"/>
+                    <field name="diagnosis"/>
+                    <field name="state"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_global_click o_has_icon">
+                                <div class="o_project_kanban_main">
+                                    <div class="o_kanban_card_content">
+                                        <div class="o_kanban_primary_left">
+                                            <div class="o_primary">
+                                                <span><t t-esc="record.name.value"/></span>
+                                                <span t-if="record.age.value">
+                                                    <b>Age: <t t-esc="record.age.value" style="font-size:20px;"/></b>
+                                                </span>
+                                            </div>
+                                            <div t-if="record.diagnosis.value">
+                                                <span>&#160;&#160;&#160;Diagnosis: <t t-esc="record.diagnosis.value"/></span>
+                                            </div>
+                                            <div t-if="record.state.value" class="oe_">
+                                                <span>&#160;&#160;&#160;Status: <t t-esc="record.state.value"/></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_card_manage_pane">
+                                        <div class="o_kanban_card_manage_section o_kanban_manage_reports">
+                                            <div>
+                                                <a type="edit">Settings</a>
+                                            </div>
+                                        </div>
+                                        <div class="o_project_kanban_colorpicker">
+                                            <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                        </div>
+                                    </div>
+                                    <a class="o_kanban_manage_toggle_button o_left" href="#" ><i class="fa fa-ellipsis-v" /></a>
+                                </div>
+                                <div class="o_project_kanban_boxes">
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="view_prescription_form" model="ir.ui.view">
+            <field name="name">prescriptions.prescription.form</field>
+            <field name="model">prescriptions.prescription</field>
+            <field name="arch" type="xml">
+                <form string="prescription">
+                    <header>
+                        <button name="action_done" type="object" string="Lock" state="done" class="oe_highlight"/>
+                        <field name="state" widget="statusbar" statusbar_visible="open,done"/>
+                        <button string="wizard" type="action" name="%(action_view_wizard)d" />
+                        <button name="attachment" string="attachment" type="object" class="oe_highlight"/>
+                        <button name="create_sale_order" string="Genrate_order" type="object" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                          <div class="oe_button_box" name="button_box">
+                          <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                options='{"terminology": "archive"}'/>
+                          </button>
+                          <button type="object"  name="attachment_kanban"
+                            class="oe_stat_button"
+                            icon="fa-paperclip">
+                            <field name="count_attachment" widget="statinfo" string="Attachment"/>
+                          </button>
+                          </div>
+                        <div class="oe_title">
+                            <h1><field name="seq"/></h1>
+                          </div>
+                            <group col="4" colspan="4"
+                                name="patient_information">
+
+                                <field name="name" required="1" placeholder="Name" domain="[('patient','=',True)]"/>
+                                <field name="age"/>
+                                <field name="diagnosis"/>
+                                <field name="date" />
+                                <field name="visitagain"/>
+                                <field name="visitdate" attrs="{'invisible': [('visitagain','=', False)], 'required':[('visitagain','=', True)]} "/>
+                                <field name="totalqty"/>
+                                <field name="mobile"/>
+                            </group>
+
+                        <notebook colspan="4">
+                            <page string="Medicine">
+                                <field name="medicine_id" mode="tree">
+                                    <tree string="Medicines" editable="bottom">
+                                        <field name="count" widget="handle"/>
+                                        <field name="medicine"/>
+                                        <field name="dosage"/>
+                                        <field name="qty"/>
+                                        <field name="refillinterval"/>
+                                        <field name="morning"/>
+                                        <field name="afternoon"/>
+                                        <field name="evening"/>
+                                        <field name="time"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                       <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                       <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_view_prescription">
+            <field name="name">prescription</field>
+            <field name="res_model">prescriptions.prescription</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban,calendar,graph,pivot</field>
+            <!-- <field name="context">{'search_default_visitagain':True, 'search_default_group_name':True, 'search_default_state':'open'}</field> -->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Create new  prescription
+                </p>
+            </field>
+        </record>
+        <menuitem id="menu_prescription" name="prescriptions"/>
+        <menuitem id="menu_prescriptionx" name="prescriptions" parent="menu_prescription"
+                  action="action_view_prescription"/>
+    </data>
+</odoo>
+
+

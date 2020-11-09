@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+
+{
+    'name': 'priscription',
+    'summary': """This module will add a record of patient""",
+    'version': '1.0',
+    'description': """This module will add a record of patient and their priscription""",
+    'author': 'Merlin_Techsol',
+    'company': 'Merlin',
+    'website': 'http://www.merlinTechsol.com',
+    'category': 'Tools',
+    'depends': ['base','product'],
+    'license': 'GPL-3',
+    'data': [
+        'prescriptions_views/attachment_views.xml',
+        'prescriptions_views/prescriptions.xml',
+        'wizard/wizard.xml',
+        'prescriptions_views/patient_view.xml',
+        'data/ir_seq_data.xml',
+        'wizard/updatewizard_view.xml',
+        'wizard/product_wizard.xml',
+        'wizard/formdata.xml',
+        'report/invoice_report.xml',
+        'report/invoice_template.xml',
+        'report/invoice_xlsx.xml',
+    ],
+    'demo': [],
+    'installable': True,
+    'auto_install': False,
+}

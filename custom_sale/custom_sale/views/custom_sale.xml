@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">form modification</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='sales_person']" position="after">
+                  <group>
+                      <label for="date_planned"/>
+                      <div>
+                          <field name="min_date"/>
+                          <field name="date_planned"/>
+                          <button name="action_set_date_planned" type="object"
+                              string="Set date to all order lines"
+                              help="This changes the scheduled date of all order lines to the given date"
+                              class="fa fa-calendar o_icon_button oe_edit_only"/>
+                      </div>
+                  </group>
+                </xpath>
+          <xpath expr="//page/field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="date_planned" string="Shedule date"/>
+          </xpath>
+        </field>
+    </record>
+</odoo>
+
+
+

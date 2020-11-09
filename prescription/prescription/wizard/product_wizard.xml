@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="product_wizard_view" model="ir.ui.view">
+        <field name="name">product wizard</field>
+        <field name="model">product.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                    <sheet>
+                        <div class="oe_title">
+                            <group col="4" colspan="4"
+                                name="product">
+                                <field name="product_name"/>
+                            </group>
+                        </div>
+                        <notebook colspan="4">
+                            <page string="Products">
+                                <field name="external_id" mode="tree">
+                                    <tree string="" editable="bottom">
+                                        <field name="name_product"/>
+                                        <field name="cost"/>
+                                        <field name="referance"/>
+                                        <field name="category"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                    <button name="product_data" string="Update Record" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_view_product_wizard" model="ir.actions.act_window">
+        <field name="name">Product Wizard</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+    <menuitem
+        id="menu_product_wizard_view"
+        parent="sale.sale_menu_root" name="product_x"/>
+    <menuitem
+        action="action_view_product_wizard"
+        id="menu_product_wizard_view_x"
+        parent="menu_product_wizard_view" name="product_x"/>
+</odoo>
